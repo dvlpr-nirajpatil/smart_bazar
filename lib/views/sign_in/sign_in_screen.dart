@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pinput/pinput.dart';
 import 'package:smartbazar/consts/assets_url.dart';
 import 'package:smartbazar/consts/colors.dart';
 import 'package:smartbazar/consts/spacing.dart';
 import 'package:smartbazar/consts/typography.dart';
 import 'package:smartbazar/views/shared/bg_widget.dart';
+import 'package:smartbazar/views/sign_in/components/mobile_number_field.dart';
+import 'package:smartbazar/views/sign_in/components/otp_screen.dart';
 
-class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  SignInScreen({super.key});
 
   static String id = "SignInScreen";
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  bool _showOtpScreen = false;
+
+  void goToOtpScreen() {
+    _showOtpScreen = true;
+    setState(() {});
+  }
+
+  void goToMobileNumberScreen() {
+    _showOtpScreen = false;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,48 +54,13 @@ class SignInScreen extends StatelessWidget {
                 SizedBox(
                   height: 46.h,
                 ),
-                Text(
-                  "Enter your mobile number",
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontFamily: Typo.medium,
-                    color: AppColors.textColor,
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Text(
-                  "We need to verify you. We will send you a one time verification code. ",
-                  style: TextStyle(
-                    color: AppColors.textColor.withOpacity(0.74),
-                  ),
-                ),
-                SizedBox(
-                  height: 28.h,
-                ),
-                CustomTextField(
-                  hint: "Phone Number",
-                  prefix: Padding(
-                    padding: EdgeInsets.only(right: 10),
-                    child: Icon(
-                      Icons.phone,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                CustomTextField(
-                  hint: "Enter Pincode",
-                ),
-                SizedBox(
-                  height: 43.h,
-                ),
-                FilledButton(
-                  onPressed: () {},
-                  child: Text("Next"),
-                ),
+                _showOtpScreen
+                    ? OtpVerificationWidget(
+                        onPress: goToMobileNumberScreen,
+                      )
+                    : MobileNumberField(
+                        onPress: goToOtpScreen,
+                      ),
                 Padding(
                     padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom * 0.1))
@@ -83,42 +68,6 @@ class SignInScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  CustomTextField({super.key, this.controller, this.prefix, this.hint});
-
-  TextEditingController? controller;
-  Widget? prefix;
-  String? hint;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      decoration: BoxDecoration(
-          color: AppColors.textFieldColor,
-          borderRadius: BorderRadius.circular(8.r)),
-      width: double.infinity,
-      height: 52.h,
-      child: Row(
-        children: [
-          prefix ?? const SizedBox(),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintStyle:
-                    TextStyle(color: AppColors.textColor, fontSize: 16.sp),
-                hintText: hint,
-                border: InputBorder.none,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
