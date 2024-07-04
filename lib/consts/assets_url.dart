@@ -12,4 +12,5 @@ class AssetsUrl {
   static String igBeverages = "assets/images/beverages.png";
   static String igDairy = "assets/images/dairy.png";
   static String igVegies = "assets/images/vegies.png";
+  static String igProduct1 = "assets/images/product1.png";
 }
