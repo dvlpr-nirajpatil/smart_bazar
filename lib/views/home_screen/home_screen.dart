@@ -3,6 +3,7 @@ import 'package:smartbazar/consts/consts.dart';
 import 'package:smartbazar/consts/lists.dart';
 import 'package:smartbazar/consts/typography.dart';
 import 'package:smartbazar/views/home_screen/sections/search_field_section.dart';
+import 'package:smartbazar/views/shared/custom_drop_down.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CategoryTileDataModel {
@@ -11,21 +12,6 @@ class CategoryTileDataModel {
 
   CategoryTileDataModel({this.title, this.img});
 }
-
-List<String> packageWeights = [
-  '50gm',
-  '100gm',
-  '250gm',
-  '500gm',
-  '750gm',
-  '1kg',
-  '1.5kg',
-  '2kg',
-  '2.5kg',
-  '5kg',
-  '10kg',
-  '20kg'
-];
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -225,39 +211,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    DropdownButtonFormField(
-                      hint: Text(
-                        weights[0],
-                        style: TextStyle(fontSize: 12),
-                      ),
-                      icon: Icon(
-                        Icons.expand_more,
-                        color: AppColors.borderColor,
-                      ),
-                      dropdownColor: Colors.white,
-                      decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.greenColor),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.borderColor),
-                        ),
-                        isDense: true,
-                      ),
-                      isExpanded: true,
-                      items: packageWeights
-                          .map<DropdownMenuItem>((value) => DropdownMenuItem(
-                                child: Text(
-                                  value,
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                                value: value,
-                              ))
-                          .toList(),
-                      onChanged: (value) {},
-                    ),
+                    customDropDownField(weights),
                     SizedBox(
                       height: 10.h,
                     ),

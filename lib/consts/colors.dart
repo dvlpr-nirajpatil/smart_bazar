@@ -11,4 +11,5 @@ class AppColors {
   static Color activeRatingColor = const Color(0xffFDC040);
   static Color normalRatingColor = const Color(0xffd4d4d4);
   static Color redColor = const Color(0xffFF4F4F);
+  static Color searchFieldColor = const Color(0xffF0F1F2);
 }
